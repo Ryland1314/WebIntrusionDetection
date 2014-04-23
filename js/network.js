@@ -38,9 +38,11 @@ var progress = setInterval(function () {
 }, 800);
 
 
-var createTable = function (callback){
+var createTable = function (fullData, callback){
     var request = $.getJSON('event_log.json', function(data) {
             $.each(data, function(index, value) {
+                  fullData[index] = [];
+                  fullData[index] = value;
                   List[index] = [];
                   List[index].push(index+1);
                   List[index].push(value.sig_priority);
@@ -72,7 +74,8 @@ var createTable = function (callback){
          $("#example tbody tr").on("click",function(event) {
                  packetLog = oTable.fnGetData(this);
                  console.log("In click event");
-                 console.log(List[packetLog[0]]);
+                 var tableid = document.getElementById('detail_table');
+                 console.log(tableid.rows);
             });
 
     });
