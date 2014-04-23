@@ -5,21 +5,24 @@ var scan_function = function() {
     var main = document.getElementById('main_area');
     console.log("main",main);
     var example = document.getElementById('example_wrapper');
+    if( example != null)
     main.removeChild(example);
 
 }
 
-
+/*
 var table = document.getElementById("example");
 table.addEventListener('click',function (){
     console.log("clicked");
 })
+*/
 
 // var tbody = document.getElementById("tbody");
 // tbody.addEventListener('click',function (){
 //     console.log("clicked tbody");
 // })
 
+var oTable;
 
 var progress = setInterval(function () {
     var $bar = $('.bar');
@@ -51,7 +54,7 @@ var createTable = function (callback){
                   List[index].push(value.sig_name);
 
                 });
-         $('#example').dataTable( {
+         oTable = $('#example').dataTable( {
             "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
             "aaData": List,
             "aoColumns": [
@@ -64,7 +67,13 @@ var createTable = function (callback){
                             { "sTitle": "DPort"},
                             { "sTitle": "Event Message"},
                         ]
-                    });
+                    }); 
+
+         $("#example tbody tr").on("click",function(event) {
+                 packetLog = oTable.fnGetData(this);
+                 console.log("In click event");
+                 console.log(List[packetLog[0]]);
+            });
 
     });
 

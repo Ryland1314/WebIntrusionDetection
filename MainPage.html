@@ -164,8 +164,13 @@
                 var vuln_circle = document.getElementById("vuln");
                 vuln.setAttribute("data-src","holder.js/100x100/auto/lava/text: " + l.length);
                 Holder.run();
-            });
+        });
 
+             $("#example tbody tr").on("click",function(event) {
+                 packetLog = oTable.fnGetData(this);
+                 console.log(packetLog);
+            });
+         
             $("#scan_button").click( function( e ) {
                 scan_function();
                 console.log("localStorage",globalList);
