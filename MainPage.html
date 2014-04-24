@@ -18,6 +18,9 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
+    <!-- My own CSS file-->
+    <link href="css/mycss.css" rel="stylesheet">
+
     <style type="text/css"></style><style id="holderjs-style" type="text/css"></style></head>
 
   <body style="">
@@ -167,8 +170,8 @@
                 Holder.run();
         });
 
-             
-         
+
+
             $("#scan_button").click( function( e ) {
                 scan_function();
                 console.log("localStorage",globalList);
@@ -179,28 +182,27 @@
 
     <style>
         .detail_table, tr, th {
-            border-collapse:collapse;
             border:1px solid black;
         }
         th, td {
-            padding:5px;
+            padding:3px;
         }
     </style>
 
-    <table id="detail_table" style ="width:10%">
+    <table class="table table-bordered" id="detail_table" style="table-layout:fixed; width:1400px" align="left">
             <tr>
-              <th rowspan="2">IP</th>
-              <td>Source IP</td>
-              <td>Dest IP</td>
-              <td>Ver</td>
-              <td>HL</td>
-              <td>TOS</td>
-              <td>Len</td>
-              <td>ID</td>
-              <td>Flags</td>
-              <td>Offset</td>
-              <td>TTL</td>
-              <td>Chksum</td>
+              <th class="width50" rowspan="2">IP</th>
+              <td class="widthfull">Source IP</td>
+              <td class="widthfull">Dest IP</td>
+              <td class="widthfull">Ver</td>
+              <td class="widthfull">HL</td>
+              <td class="widthbig">TOS</td>
+              <td class="widthbig">Len</td>
+              <td class="width50">ID</td>
+              <td class="width40">Flg</td>
+              <td class="width60">Offset</td>
+              <td class="width40">TTL</td>
+              <td class="widthfull">Chksum</td>
           </tr>
 
             <tr>
@@ -217,7 +219,7 @@
               <td id = 'ip_csum'>-----</td>
             </tr>
             <tr>
-              <th rowspan="2">TCP</th>
+              <th class="width50" rowspan="2">TCP</th>
               <td>Src Port</td>
               <td>Dest Port</td>
               <td>R1</td>
@@ -229,15 +231,11 @@
               <td>SYN</td>
               <td>FIN</td>
               <td>Seq#</td>
-              <td>Ack#</td>
-              <td>Offset</td>
-              <td>Res</td>
-              <td>Window</td>
-              <td>URP</td>
-              <td>checksum</td>
+
           </tr>
 
             <tr>
+
               <td id ='tcp_sport'>-----</td>
               <td id = 'tcp_dport'>-----</td>
               <td id = 'tcp_r1'>-----</td>
@@ -249,45 +247,35 @@
               <td id = 'tcp_syn'>-----</td>
               <td id = 'tcp_fin'>-----</td>
               <td id = 'tcp_seq'>-----</td>
-              <td id = 'tcp_ackn'>-----</td>
-              <td id = 'tcp_off'>-----</td>
-              <td id = 'tcp_res'>-----</td>
-              <td id = 'tcp_win'>-----</td>
-              <td id = 'tcp_urp'>-----</td>
-              <td id = 'tcp_csum'>-----</td>
+            </tr>
+            <tr>
+                <th class="width50" rowspan="2">   </th>
+                <td class="widthfull">Ack#</td>
+                <td class="widthfull">Offset</td>
+                <td class="widthfull">Res</td>
+                <td class="widthfull">Window</td>
+                <td class="widthfull">URP</td>
+                <td class="widthfull">checksum</td>
+            </tr>
+            <tr>
+                <td id = 'tcp_ackn'>-----</td>
+                <td id = 'tcp_off'>-----</td>
+                <td id = 'tcp_res'>-----</td>
+                <td id = 'tcp_win'>-----</td>
+                <td id = 'tcp_urp'>-----</td>
+                <td id = 'tcp_csum'>-----</td>
             </tr>
             <tr>
                  <th rowspan="5">Data</th>
-                 <td id = 'packet_data'>
+                 <td  style="word-wrap: break-word;" colspan="12" id = 'packet_data'>
                      line 1
                  </td>
                  <tr>
-                     <td id = 'ascii_data'>
+                     <td  style="word-wrap: break-word;" colspan="10" id = 'ascii_data'>
                          line 2
                      </td>
                  </tr>
-                 <tr>
-                     <td>
-                     line 3
-                 </td>
-                 </tr>
-                 <tr>
-                     line 4
-                 </tr>
             </tr>
         </table>
-
-<table id="new">
-        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-            <td>etc</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-            <td>etc</td>
-        </tr>
-</table>
 
 </body></html>
