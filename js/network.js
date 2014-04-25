@@ -1,15 +1,43 @@
 List = [];
 
-var scan_function = function() {
+//Datatable and Detail table div
+var main_area_id;
+
+var show_buttons = function() {
+    var div = document.getElementById('show_buttons');
+    var divs = div.getElementsByTagName('div');
+    for( var i =0 ; i < divs.length ; i++)
+        divs[i].style.display = "inline-block";
+    
+    $('.dropdown-toggle').dropdown();
+}
+
+var view_graph = function() {
     console.log("In scan function");
-    var main = document.getElementById('main_area');
+    var main = document.getElementById('rm-for-graph');
     console.log("main",main);
-    var example = document.getElementById('example_wrapper');
-    if( example != null)
-    main.removeChild(example);
+    main_area_id = document.getElementById('main_area');
+    if( main_area_id != null)
+    main.removeChild(main_area_id);
+    var title = document.getElementById('section_title');
+    title.innerHTML = "Graph Visualization";
+
+    show_buttons();
+    
+    //document.getElementById('x_axis').style.display="inline-block"
+    //document.getElementById('y_axis').style.display="inline-block"
+    //document.getElementById('graph_type').style.display="inline-block"
 
 }
 
+var display_tables = function() {
+    document.getElementById('x_axis').style.display="none";
+    document.getElementById('y_axis').style.display="none";
+    document.getElementById('graph_type').style.display="none";
+    var main = document.getElementById('rm-for-graph');
+    main.appendChild(main_area_id);
+
+}
 /*
 var table = document.getElementById("example");
 table.addEventListener('click',function (){
