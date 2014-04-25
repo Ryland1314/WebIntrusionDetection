@@ -54,7 +54,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview</a></li>
+            <li class="active" id='overview'><a href="#">Overview</a></li>
             <li><a href="#">Reports</a></li>
             <li><a href="#">Analytics</a></li>
             <li><a href="#">Export</a></li>
@@ -87,7 +87,7 @@
               <span class="text-muted">Click to run a network scan</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/100x100/auto/gray/text: View Graphs" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
+              <img data-src="holder.js/100x100/auto/gray/text: View Graphs" id="view_graph" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">
               <h4>Graphical Analysis</h4>
               <span class="text-muted">Click to see trends</span>
             </div>
@@ -102,11 +102,65 @@
                   <div class="bar" style="width: 0%;"></div>
               </div>
           </div> -->
+            <div class="del-for-graph" id="rm-for-graph">  
+                <h2 id ='section_title' class="sub-header">Section title</h2>
+            <div class="plot_options" id="show_buttons">
+                <div class="btn-group" id="x_axis">
+                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#8533FF;color:white;">
+                     X Axis <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Timestamp</a></li>
+                        <li><a href="#">Source Ip</a></li>
+                        <li><a href="#">Destination IP</a></li>
+                        <li><a href="#">Source Port</a></li>
+                        <li><a href="#">Destination Port</a></li>
 
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive" id="main_area">
-            <table id="example" class="display" >
-          </div>
+                    </ul>
+                </div>
+                <div class="btn-group" id="y_axis" style="color:blue;">
+                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="left:150px;background-color:#8533FF;color:white;">
+                     Y Axis <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Timestamp</a></li>
+                        <li><a href="#">Source Ip</a></li>
+                        <li><a href="#">Destination IP</a></li>
+                        <li><a href="#">Source Port</a></li>
+                        <li><a href="#">Destination Port</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group" id="graph_type" style="color:blue;">
+                    <button class="btn btn-default btn-lg pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="left:200px;background-color:#8533FF;color:white;">
+                     Graph Type <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Bar Graph</a></li>
+                        <li><a href="#">Line Graph</a></li>
+                        <li><a href="#">Area Spline</a></li>
+                        <li><a href="#">Spline</a></li>
+                        <li><a href="#">Pie</a></li>
+                    </ul>
+                </div>
+            </div>
+<!--
+                <li class="dropdown" id="x_axis">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">X-AXIS<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Timestamp</a></li>
+                            <li><a href="#">Source Ip</a></li>
+                            <li><a href="#">Destination IP</a></li>
+                            <li><a href="#">Source Port</a></li>
+                            <li><a href="#">Destination Port</a></li>
+                            <li class="divider"></li>
+                        </ul>
+                </li>
+-->
+
+                <div class="table-responsive" id="main_area">
+                    <table id="example" class="display" >
+                </div>
+            </div>
         </div>
       </div>
     </div>
@@ -156,26 +210,36 @@
                 return "NA";
         }
         }
+
+        function hide_buttons()
+        {
+            document.getElementById("x_axis").style.display="none"
+            document.getElementById("y_axis").style.display="none"
+            document.getElementById("graph_type").style.display="none"
+        }
         var packetLog;
         $("document").ready(function() {
-                createTable(fullData,function (l){
-                var vuln_length = l.length;
-                var dataToStore = JSON.stringify(l);
-                localStorage.setItem('ListData', dataToStore);
-                globalList = l;
-
-                //localStorage.ListData = l;
-                var vuln_circle = document.getElementById("vuln");
-                vuln_circle.setAttribute("data-src","holder.js/100x100/auto/lava/text: " + l.length);
-                Holder.run();
-        });
-
-
-
-            $("#scan_button").click( function( e ) {
-                scan_function();
+            hide_buttons();
+            $("#view_graph").click( function( e ) {
+                view_graph();
                 console.log("localStorage",globalList);
             });
+            $("#overview").click( function( e ) {
+                display_tables();
+            });
+                createTable(fullData,function (l){
+                    var vuln_length = l.length;
+                    var dataToStore = JSON.stringify(l);
+                    localStorage.setItem('ListData', dataToStore);
+                    globalList = l;
+
+                    //localStorage.ListData = l;
+                    var vuln_circle = document.getElementById("vuln");
+                    vuln_circle.setAttribute("data-src","holder.js/100x100/auto/lava/text: " + l.length);
+                    Holder.run();
+                });
+
+
         });
 
     </script>
