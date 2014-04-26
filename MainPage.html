@@ -24,7 +24,7 @@
     <style type="text/css"></style><style id="holderjs-style" type="text/css"></style></head>
 
   <body style="">
-
+   <div id="high_chart" style="width:70%; height:400px; display:none; align:right; position:right></div>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -103,10 +103,10 @@
               </div>
           </div> -->
             <div class="del-for-graph" id="rm-for-graph">  
-                <h2 id ='section_title' class="sub-header">Section title</h2>
+                <h2 id ='section_title' class="sub-header">Events Overview</h2>
             <div class="plot_options" id="show_buttons">
                 <div class="btn-group" id="x_axis">
-                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#8533FF;color:white;">
+                    <button class="btn btn-default btn-lg dropdown-toggle btn-select" type="button" data-toggle="dropdown" style="background-color:#8533FF;color:white;">
                      X Axis <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -119,7 +119,7 @@
                     </ul>
                 </div>
                 <div class="btn-group" id="y_axis" style="color:blue;">
-                    <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="left:150px;background-color:#8533FF;color:white;">
+                    <button class="btn btn-default btn-lg dropdown-toggle btn-select1" type="button" data-toggle="dropdown" style="background-color:#8533FF;color:white;">
                      Y Axis <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -131,10 +131,10 @@
                     </ul>
                 </div>
                 <div class="btn-group" id="graph_type" style="color:blue;">
-                    <button class="btn btn-default btn-lg pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="left:200px;background-color:#8533FF;color:white;">
+                    <button class="btn btn-default btn-lg dropdown-toggle btn-select2" type="button" data-toggle="dropdown" style="background-color:#8533FF;color:white;">
                      Graph Type <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu pull-right">
                         <li><a href="#">Bar Graph</a></li>
                         <li><a href="#">Line Graph</a></li>
                         <li><a href="#">Area Spline</a></li>
@@ -142,6 +142,7 @@
                         <li><a href="#">Pie</a></li>
                     </ul>
                 </div>
+                    <div class="btn btn-primary btn-lg btn-block active" id="plot_btn" style="top:200px; disabled:true;"><span class="glyphicon glyphicon-stats"></span> Plot</div>
             </div>
 <!--
                 <li class="dropdown" id="x_axis">
@@ -176,6 +177,10 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="js/moments.js"></script>
     <script type="text/javascript" src="js/network.js"></script>
+
+    <!-- High Charts -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
     <script type="text/javascript">
         var globalList;
@@ -216,7 +221,41 @@
             document.getElementById("x_axis").style.display="none"
             document.getElementById("y_axis").style.display="none"
             document.getElementById("graph_type").style.display="none"
+            document.getElementById("plot_btn").style.display="none"
         }
+
+
+function draw_graph() {
+    document.getElementById("high_chart").style.display = "block";
+     $('#high_chart').highcharts({
+        chart: {
+            type: 'bar',
+            position: 'right',
+            marginleft:200
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]},
+        {
+            name: 'John',
+            data: [5, 7, 3]}]
+    });
+}
+        $(".dropdown-menu li a").click(function(){
+             var selText = $(this).text();
+              $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+});
         var packetLog;
         $("document").ready(function() {
             hide_buttons();
@@ -227,6 +266,13 @@
             $("#overview").click( function( e ) {
                 display_tables();
             });
+            $('#plot_btn').on('click', function (e) {
+                document.getElementById("show_buttons").style.display = "none"
+                var title = document.getElementById('section_title');
+                title.innerHTML = "Bar Graph";
+                draw_graph();
+           //ACTION
+            })
                 createTable(fullData,function (l){
                     var vuln_length = l.length;
                     var dataToStore = JSON.stringify(l);

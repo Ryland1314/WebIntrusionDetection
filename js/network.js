@@ -4,13 +4,17 @@ List = [];
 var main_area_id;
 
 var show_buttons = function() {
+    console.log("In show buttons");
     var div = document.getElementById('show_buttons');
     var divs = div.getElementsByTagName('div');
     for( var i =0 ; i < divs.length ; i++)
         divs[i].style.display = "inline-block";
     
     $('.dropdown-toggle').dropdown();
+    
 }
+
+
 
 var view_graph = function() {
     console.log("In scan function");
@@ -176,7 +180,7 @@ var createTable = function (fullData, callback){
 
     request.done(function(){
         console.log("After Callback");
-        console.log("list",List);
+        //console.log("list",List);
         window.List = List;
         callback(List);
         // put this into local storage for use in other functions and charts
