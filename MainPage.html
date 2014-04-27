@@ -216,6 +216,7 @@
         }
         }
 
+<!--
         function hide_buttons()
         {
             document.getElementById("x_axis").style.display="none"
@@ -223,42 +224,16 @@
             document.getElementById("graph_type").style.display="none"
             document.getElementById("plot_btn").style.display="none"
         }
+-->
 
-
-function draw_graph() {
-    document.getElementById("high_chart").style.display = "block";
-     $('#high_chart').highcharts({
-        chart: {
-            type: 'bar',
-            position: 'right',
-            marginleft:200
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]},
-        {
-            name: 'John',
-            data: [5, 20, 3]}]
-    });
-}
-        $(".dropdown-menu li a").click(function(){
+       $(".dropdown-menu li a").click(function(){
              var selText = $(this).text();
               $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
 });
         var packetLog;
         $("document").ready(function() {
-            hide_buttons();
+            change_button_visibility('none');    
+            <!-- hide_buttons();  -->
             $("#view_graph").click( function( e ) {
                 view_graph();
                 console.log("localStorage",globalList);
@@ -267,10 +242,11 @@ function draw_graph() {
                 display_tables();
             });
             $('#plot_btn').on('click', function (e) {
-                document.getElementById("show_buttons").style.display = "none"
+                var graph = document.getElementById('graph_type');
+                change_button_visibility("none");
                 var title = document.getElementById('section_title');
                 title.innerHTML = "Bar Graph";
-                draw_graph();
+                draw_graph(graph.innerText);
            //ACTION
             })
                 createTable(fullData,function (l){

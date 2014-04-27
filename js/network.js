@@ -25,7 +25,7 @@ var view_graph = function() {
     show_buttons();
 }
 
-var change_button_visibility = function(value)
+function change_button_visibility(value)
 {
     var div = document.getElementById('show_buttons');
     var divs = div.getElementsByTagName('div');
@@ -207,9 +207,45 @@ function storeData (){
             });
             return data;
     });
-
-
 }
+
+function draw_graph(graphType) {
+    var timestamp = [];
+    var element = [];
+    for( var i = 0; i < List.length; i++) {
+         timestamp = List[i].filter(function(val) {
+          console.log(val);
+          //element = val.split(" ");
+        });
+         console.log(timestamp[0]);
+    }
+    document.getElementById("high_chart").style.display = "block";
+     $('#high_chart').highcharts({
+        chart: {
+            type: 'bar',
+            position: 'right',
+            marginleft:200
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]},
+        {
+            name: 'John',
+            data: [5, 20, 3]}]
+    });
+}
+ 
 
 
 var getDetails = function(id){
