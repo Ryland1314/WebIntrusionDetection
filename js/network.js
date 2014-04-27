@@ -31,6 +31,7 @@ function change_button_visibility(value) {
 var display_tables = function () {
     change_button_visibility("none");
     var main = document.getElementById('rm-for-graph');
+    document.getElementById('section_title').innerHTML = "Events Overview";
     main.appendChild(main_area_id);
 
 }
@@ -58,6 +59,35 @@ function hex2a(hexx) {
     return str;
 }
 
+//Tag used to access the tcp flags in createTable and clear_tcp_fields
+var tag = {
+                    0: 'tcp_fin',
+                    1: 'tcp_syn',
+                    2: 'tcp_rst',
+                    3: 'tcp_psh',
+                    4: 'tcp_ack',
+                    5: 'tcp_urg',
+                    6: 'tcp_r0',
+                    7: 'tcp_r1'
+                };
+
+
+function clear_tcp_fields() {
+    var shifter_iterator = 0;
+    document.getElementById('tcp_sport').innerHTML = "---";
+    document.getElementById('tcp_dport').innerHTML = "---";
+    document.getElementById('tcp_seq').innerHTML   = "---";
+    document.getElementById('tcp_ackn').innerHTML  = "---";
+    document.getElementById('tcp_off').innerHTML   = "---";
+    document.getElementById('tcp_res').innerHTML   = "---";
+    document.getElementById('tcp_win').innerHTML   = "---";
+    document.getElementById('tcp_urp').innerHTML   = "---";
+    document.getElementById('tcp_csum').innerHTML  = "---";
+    while (shifter_iterator < 8) {
+        document.getElementById(tag[shifter_iterator]).innerHTML = "---";
+        shifter_iterator++;
+    }
+}
 
 var createTable = function (fullData, callback) {
     var request = $.getJSON('event_log.json', function (data) {
@@ -101,7 +131,7 @@ var createTable = function (fullData, callback) {
 
         $("#example tbody").on('click', 'tr', function (event) {
             packetLog = oTable.fnGetData(this);
-            var fullLog = fullData[packetLog[0]];
+            var fullLog = fullData[packetLog[0] -1];
             console.log("In click event");
             document.getElementById('src_ip').innerHTML = packetLog[3];
             document.getElementById('dst_ip').innerHTML = packetLog[5];
@@ -117,41 +147,33 @@ var createTable = function (fullData, callback) {
             document.getElementById('ip_off').innerHTML = fullLog.ip_off;
             document.getElementById('ip_ttl').innerHTML = fullLog.ip_ttl;
             document.getElementById('ip_csum').innerHTML = fullLog.ip_csum;
+            if (fullLog.data_payload != null) {
+                document.getElementById('packet_data').innerHTML = fullLog.data_payload;
+                document.getElementById('ascii_data').innerHTML = hex2a(fullLog.data_payload);
+            }
+
             if (fullLog.ip_proto == 1) {
                 //ICMP
+                clear_tcp_fields();
 
             } else if (fullLog.ip_proto == 6) {
                 //Currently just show for TCP
                 document.getElementById('tcp_sport').innerHTML = fullLog.tcp_sport;
                 document.getElementById('tcp_dport').innerHTML = fullLog.tcp_dport;
-                document.getElementById('tcp_seq').innerHTML = fullLog.tcp_seq;
-                document.getElementById('tcp_ackn').innerHTML = fullLog.tcp_ack;
-                document.getElementById('tcp_off').innerHTML = fullLog.tcp_off;
-                document.getElementById('tcp_res').innerHTML = fullLog.tcp_res;
-                document.getElementById('tcp_win').innerHTML = fullLog.tcp_win;
-                document.getElementById('tcp_urp').innerHTML = fullLog.tcp_urp;
-                document.getElementById('tcp_csum').innerHTML = fullLog.tcp_csum;
-                if (fullLog.data_payload != null) {
-                    document.getElementById('packet_data').innerHTML = fullLog.data_payload;
-                    document.getElementById('ascii_data').innerHTML = hex2a(fullLog.data_payload);
-
-                }
+                document.getElementById('tcp_seq').innerHTML   = fullLog.tcp_seq;
+                document.getElementById('tcp_ackn').innerHTML  = fullLog.tcp_ack;
+                document.getElementById('tcp_off').innerHTML   = fullLog.tcp_off;
+                document.getElementById('tcp_res').innerHTML   = fullLog.tcp_res;
+                document.getElementById('tcp_win').innerHTML   = fullLog.tcp_win;
+                document.getElementById('tcp_urp').innerHTML   = fullLog.tcp_urp;
+                document.getElementById('tcp_csum').innerHTML  = fullLog.tcp_csum;
 
                 var flags = parseInt(fullLog.tcp_flags);
                 console.log("flags in dec: " + flags);
                 console.log("flags in log: " + fullLog.tcp_flags);
                 var shifter_iterator = 0;
                 var mask = 1;
-                var tag = {
-                    0: 'tcp_fin',
-                    1: 'tcp_syn',
-                    2: 'tcp_rst',
-                    3: 'tcp_psh',
-                    4: 'tcp_ack',
-                    5: 'tcp_urg',
-                    6: 'tcp_r0',
-                    7: 'tcp_r1'
-                };
+                
                 while (shifter_iterator < 8) {
                     if (flags & (mask << shifter_iterator))
                         document.getElementById(tag[shifter_iterator]).innerHTML = 1;
