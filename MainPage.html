@@ -23,8 +23,7 @@
 
     <style type="text/css"></style><style id="holderjs-style" type="text/css"></style></head>
 
-  <body style="">
-   <div id="high_chart" style="width:70%; height:400px; display:none; align:right; position:right></div>
+   <body style="">
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -50,6 +49,7 @@
       </div>
     </div>
 
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -71,6 +71,9 @@
             <li><a href="">One more nav</a></li>
             <li><a href="">Another nav item</a></li>
           </ul>
+        </div>
+        <div id="high_chart" class="chart-hide">
+<!--              this is a div -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Dashboard</h1>
@@ -102,7 +105,8 @@
                   <div class="bar" style="width: 0%;"></div>
               </div>
           </div> -->
-            <div class="del-for-graph" id="rm-for-graph">  
+
+            <div class="del-for-graph" id="rm-for-graph">
                 <h2 id ='section_title' class="sub-header">Events Overview</h2>
             <div class="plot_options" id="show_buttons">
                 <div class="btn-group" id="x_axis">
@@ -258,11 +262,16 @@ function draw_graph() {
 });
         var packetLog;
         $("document").ready(function() {
+
+            // remove_element("high_chart");
             hide_buttons();
             $("#view_graph").click( function( e ) {
                 view_graph();
-                console.log("localStorage",globalList);
+                var chart = document.getElementById('high_chart');
+                chart.className="chart";
             });
+
+
             $("#overview").click( function( e ) {
                 display_tables();
             });

@@ -22,3 +22,21 @@
 .widthbig {
     width: 80px;
 }
+
+.chart {
+    height:400px;
+    padding-left: 300px;
+    width: 80%;
+/*    display:none
+    align:right;
+    position:right*/
+}
+
+.chart-hide {
+    height: 0px;
+    padding-left: 300px;
+    width: 0%;
+/*    display:none
+    align:right;
+    position:right*/
+}
