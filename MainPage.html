@@ -127,11 +127,11 @@
                                 Graph Type <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="#">Bar Graph</a></li>
-                                    <li><a href="#">Line Graph</a></li>
-                                    <li><a href="#">Area Spline</a></li>
-                                    <li><a href="#">Spline</a></li>
-                                    <li><a href="#">Pie</a></li>
+                                    <li><a href="#" onclick="setGraphType('bar')">Bar Graph</a></li>
+                                    <li><a href="#" onclick="setGraphType('line')">Line Graph</a></li>
+<!--                                     <li><a href="#" onclick="setGraphType('bar')">Area Spline</a></li>
+                                    <li><a href="#" onclick="setGraphType('bar')">Spline</a></li>
+                                    <li><a href="#" onclick="setGraphType('bar')">Pie</a></li> -->
                                 </ul>
                             </div>
                             <div class="btn btn-primary btn-lg btn-block active" id="plot_btn" style="top:200px; disabled:true;"><span class="glyphicon glyphicon-stats"></span> Plot</div>
@@ -262,6 +262,7 @@
             var globalList;
             var fullData = [];
             var text;
+            var graphType = 'bar';
             function numToDot( num) {
             var d = num%256;
             for (var i = 3; i > 0; i--)
@@ -270,6 +271,10 @@
                 d = num%256 + '.' + d;
             }
             return d;
+            }
+
+            function setGraphType(val){
+                graphType=val;
             }
 
             function FindPortTypes(row, src)
@@ -305,6 +310,7 @@
             $(".dropdown-menu li a").click(function(){
                  var selText = $(this).text();
                   $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+
             });
             var packetLog;
             $("document").ready(function() {
@@ -322,8 +328,9 @@
                     change_button_visibility("none");
                     var title = document.getElementById('section_title');
                     title.innerHTML = "Bar Graph";
+                    console.log(graph.innerText);
 
-                    draw_graph(graph.innerText);
+                    draw_graph(graphType);
                //ACTION
                 })
                     createTable(fullData,function (l){
