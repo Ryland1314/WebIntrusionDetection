@@ -7,7 +7,7 @@ var show_buttons = function() {
     console.log("In show buttons");
     change_button_visibility("inline-block");
     $('.dropdown-toggle').dropdown();
-    
+
 }
 
 
@@ -107,7 +107,7 @@ var createTable = function (fullData, callback){
                             { "sTitle": "DPort"},
                             { "sTitle": "Event Message"},
                         ]
-                    }); 
+                    });
 
          $("#example tbody").on('click','tr',function(event) {
                  packetLog = oTable.fnGetData(this);
@@ -155,7 +155,7 @@ var createTable = function (fullData, callback){
                     var mask = 1;
                     var tag = { 0:'tcp_fin',1:'tcp_syn',2:'tcp_rst',3:'tcp_psh',4:'tcp_ack',5:'tcp_urg',6:'tcp_r0',7:'tcp_r1'};
                     while( shifter_iterator < 8) {
-                        if(flags & (mask << shifter_iterator)) 
+                        if(flags & (mask << shifter_iterator))
                         document.getElementById(tag[shifter_iterator]).innerHTML = 1;
                         else
                         document.getElementById(tag[shifter_iterator]).innerHTML = 0;
@@ -164,7 +164,7 @@ var createTable = function (fullData, callback){
 
                     }
 
-                     
+
                  }
                  else if( fullLog.ip_proto == 17) {
                  //UDP
@@ -214,12 +214,12 @@ function draw_graph(graphType) {
     var element = [];
     for( var i = 0; i < List.length; i++) {
          timestamp = List[i].filter(function(val) {
-          console.log(val);
           //element = val.split(" ");
         });
-         console.log(timestamp[0]);
     }
-    document.getElementById("high_chart").style.display = "block";
+    var chart = document.getElementById("high_chart");
+    chart.className = "chart";
+
      $('#high_chart').highcharts({
         chart: {
             type: 'bar',
@@ -245,7 +245,7 @@ function draw_graph(graphType) {
             data: [5, 20, 3]}]
     });
 }
- 
+
 
 
 var getDetails = function(id){
