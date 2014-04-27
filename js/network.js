@@ -5,11 +5,7 @@ var main_area_id;
 
 var show_buttons = function() {
     console.log("In show buttons");
-    var div = document.getElementById('show_buttons');
-    var divs = div.getElementsByTagName('div');
-    for( var i =0 ; i < divs.length ; i++)
-        divs[i].style.display = "inline-block";
-    
+    change_button_visibility("inline-block");
     $('.dropdown-toggle').dropdown();
     
 }
@@ -27,17 +23,18 @@ var view_graph = function() {
     title.innerHTML = "Graph Visualization";
 
     show_buttons();
-    
-    //document.getElementById('x_axis').style.display="inline-block"
-    //document.getElementById('y_axis').style.display="inline-block"
-    //document.getElementById('graph_type').style.display="inline-block"
+}
 
+var change_button_visibility = function(value)
+{
+    var div = document.getElementById('show_buttons');
+    var divs = div.getElementsByTagName('div');
+    for( var i =0 ; i < divs.length ; i++)
+        divs[i].style.display = value;
 }
 
 var display_tables = function() {
-    document.getElementById('x_axis').style.display="none";
-    document.getElementById('y_axis').style.display="none";
-    document.getElementById('graph_type').style.display="none";
+    change_button_visibility("none");
     var main = document.getElementById('rm-for-graph');
     main.appendChild(main_area_id);
 
