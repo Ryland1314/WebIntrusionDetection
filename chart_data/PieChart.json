@@ -1,0 +1,35 @@
+{
+        "chart": {
+            "plotBackgroundColor": null,
+            "plotBorderWidth": null,
+            "plotShadow": false,
+            "marginLeft":0,
+            "width":900
+        },
+        "title": {
+            "text": "Event Share observed"
+        },
+        "tooltip": {
+    	    "pointFormat": "{series.name}: <b>{point.percentage:.1f}%</b>"
+        },
+        "plotOptions": {
+            "pie": {
+                "size":250,
+                "allowPointSelect": true,
+                "cursor": "pointer",
+                "dataLabels": {
+                    "crop":false,
+                    "overflow":"none",
+                    "enabled": true,
+                    "format": "<b>{point.name}</b>: {point.percentage:.1f} %",
+                    "style": {
+                        "color": "(Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'"
+                    }
+                }
+            }
+        },
+        "series": [{
+            "type": "pie",
+            "name": "Events share"
+            }] 
+}

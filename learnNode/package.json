@@ -1,0 +1,14 @@
+{
+  "name": "Tanvir'sProject",
+  "version": "0.0.1",
+  "description": "Master's Project",
+  "keywords": [
+    "SJSU"
+  ],
+  "author": "Prateek Donni",
+  "license": "Closed",
+  "devDependencies": {
+    "jsonfile": "~1.1.1",
+    "lazy"	:	"~1.0.11"
+  }
+}

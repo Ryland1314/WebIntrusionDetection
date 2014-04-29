@@ -1,0 +1,22 @@
+{
+   "chart": {
+       "type": "column",
+       "position": "right",
+       "marginleft":200
+   },
+   "title": {
+       "text": "Event Count"
+   },
+   "xAxis": {
+       "labels": {
+           "rotation": -20
+       }
+   },
+   "yAxis": {
+       "title": {
+           "text": "Count per Event"
+       }
+   },
+   "series": [{
+       "name": "Event Name"}]
+}

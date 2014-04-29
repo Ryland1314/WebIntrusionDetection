@@ -1,5 +1,5 @@
 List = [];
-
+geoL = "";
 //Datatable and Detail table div
 var main_area_id;
 
@@ -83,12 +83,15 @@ function clear_tcp_fields() {
     document.getElementById('tcp_win').innerHTML   = "---";
     document.getElementById('tcp_urp').innerHTML   = "---";
     document.getElementById('tcp_csum').innerHTML  = "---";
+    document.getElementById('geodetail').innerHTML = "---";
     while (shifter_iterator < 8) {
         document.getElementById(tag[shifter_iterator]).innerHTML = "---";
         shifter_iterator++;
     }
 }
 
+var PreviousRow;
+var count = 0;
 var createTable = function (fullData, callback) {
     var request = $.getJSON('event_log.json', function (data) {
         $.each(data, function (index, value) {
@@ -130,9 +133,18 @@ var createTable = function (fullData, callback) {
         });
 
         $("#example tbody").on('click', 'tr', function (event) {
+            
+            if( PreviousRow != $(this) && count !=0) {
+                PreviousRow.css('background-color',PreviousColor);
+                count++;
+            }
+            PreviousColor = $(this).css('background-color');
+            $(this).css('background-color','gray');
+            PreviousRow = $(this);
+            count++;
+
             packetLog = oTable.fnGetData(this);
             var fullLog = fullData[packetLog[0] -1];
-            console.log("In click event");
             document.getElementById('src_ip').innerHTML = packetLog[3];
             document.getElementById('dst_ip').innerHTML = packetLog[5];
             document.getElementById('ip_ver').innerHTML = fullLog.ip_ver;
@@ -147,6 +159,25 @@ var createTable = function (fullData, callback) {
             document.getElementById('ip_off').innerHTML = fullLog.ip_off;
             document.getElementById('ip_ttl').innerHTML = fullLog.ip_ttl;
             document.getElementById('ip_csum').innerHTML = fullLog.ip_csum;
+            document.getElementById('geodetail').innerHTML = "---";
+
+           //The geo location of the IP
+           
+           
+            $.get( "http://api.hostip.info/get_json.php?ip=" +packetLog[3]+"&position=true", function( data ) {
+                $( ".result" ).html( data );
+                $.each(data, function(key, value) {
+                    geoL = geoL + key +":" + value + " ";
+               });
+                document.getElementById('geodetail').innerHTML = geoL;
+                //console.log(data);    
+            });
+          
+            
+
+            
+        
+            //innerHTML = "City =" + city; 
             if (fullLog.data_payload != null) {
                 document.getElementById('packet_data').innerHTML = fullLog.data_payload;
                 document.getElementById('ascii_data').innerHTML = hex2a(fullLog.data_payload);
@@ -169,8 +200,8 @@ var createTable = function (fullData, callback) {
                 document.getElementById('tcp_csum').innerHTML  = fullLog.tcp_csum;
 
                 var flags = parseInt(fullLog.tcp_flags);
-                console.log("flags in dec: " + flags);
-                console.log("flags in log: " + fullLog.tcp_flags);
+               // console.log("flags in dec: " + flags);
+                //console.log("flags in log: " + fullLog.tcp_flags);
                 var shifter_iterator = 0;
                 var mask = 1;
                 
@@ -188,6 +219,7 @@ var createTable = function (fullData, callback) {
             } else if (fullLog.ip_proto == 17) {
                 //UDP
             }
+
 
 
         });
@@ -221,33 +253,100 @@ function storeData() {
     });
 }
 
-function draw_graph(graphType) {
-    var dates = [];
+function barAndLine(xData,yData) {
     var element = [];
-    var data = []
 
     for (var i = 0; i < List.length; i++) {
-        timestamp = List[i][2];
-        timestamp = timestamp.slice(0, 10);
+            timestamp = List[i][2];
+            timestamp = timestamp.slice(0, 10);
         // 2014-04-07 01:53:13
-        if (element[timestamp]) {
-            element[timestamp] = element[timestamp] + 1;
-        } else {
-            element[timestamp] = 1;
-            dates.push(timestamp);
+            if (element[timestamp]) {
+                element[timestamp] = element[timestamp] + 1;
+            } 
+            else {
+                element[timestamp] = 1;
+                xData.push(timestamp);
+              }
+    }
+
+    xData.forEach(function (date) {
+        yData.push(element[date]);
+    });
+}
+
+function barEventCount(xData,yData) {
+    var element = []
+    var event;
+    for (var i = 0; i < List.length; i++) {
+        event = List[i][7];
+        if (element[event]) {
+            element[event] = element[event] + 1;
+        } 
+        else {
+            element[event] = 1;
+            xData.push(event);
         }
     }
 
-    var data;
-    dates.forEach(function (date) {
-        data.push(element[date]);
+    xData.forEach(function (event) {
+        yData.push(element[event]);
     });
+}
+
+function eventCountSharePie(xData,yData) {
+    var element = [];
+    var event;
+    for (var i = 0; i < List.length; i++) {
+        event = List[i][7];
+        if (element[event]) {
+            element[event] = element[event] + 1;
+        } 
+        else {
+            element[event] = 1;
+            xData.push(event);
+        }
+    }
+    var counter = 0;
+    xData.forEach(function (event) {
+        yData[counter] = [];
+        yData[counter].push(event);
+        yData[counter].push(element[event]);
+        counter++;
+    });
+
+}
+
+function draw_graph(graphType) {
+    var xData = [];
+    var yData = [];
+    
+    if(graphType == "bar" || graphType == 'line') {
+        barAndLine(xData,yData);
+    }
+    if(graphType == "EventCount") {
+        barEventCount(xData,yData);
+    }
+    if(graphType == 'PieChart') {
+        eventCountSharePie(xData,yData);
+    }
+
     var chart = document.getElementById("high_chart");
     chart.className = "chart";
 
     var d = $.getJSON('chart_data/' + graphType + '.json', function (graphdata) {
-        graphdata.xAxis.categories = dates;
-        graphdata.series[0].data = data;
+        if(graphdata['xAxis']){
+            graphdata.xAxis.categories = xData;
+        }
+        graphdata.series[0].data = yData;
         $('#high_chart').highcharts(graphdata);
+        
     });
+
+    
+
+    // var request = makeHttpObject();
+    // request.open("GET", "http://api.hostip.info/get_html.php?ip=12.215.42.19&position=true", false);
+    // request.send(null);
+    // console.log(request.responseText);
 }
+

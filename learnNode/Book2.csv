@@ -1,0 +1,32 @@
+USER,PID,%CPU,%MEM,SZ,RSS,TT,S,START,TIME,COMMAND
+root,385,0.5,0.8,1096,1000,console,S,7:56:53,0:00,/usr/bin/csh /.sim/bin/ps_monitor /bsmlogs/ps_monitor.data
+root,387,0.5,1.7,2104,2048,console,O,7:56:53,0:00,/usr/ucb/ps -awwxu
+root,3,0,0,0,0,?,S,7:51:01,0:00,fsflush
+root,0,0,0,0,0,?,T,7:50:58,0:00,sched
+root,1,0,0.2,408,248,?,S,7:51:01,0:00,/etc/init -
+root,2,0,0,0,0,?,S,7:51:01,0:00,pageout
+root,96,0,0.9,1856,1056,?,S,7:51:11,0:00,/usr/sbin/rpcbind
+root,98,0,0.5,1632,528,?,S,7:51:11,0:00,/usr/sbin/keyserv
+root,104,0,1.1,1784,1296,?,S,7:51:11,0:00,/usr/sbin/kerbd
+root,113,0,1.1,1824,1368,?,S,7:51:17,0:00,/usr/sbin/inetd -s
+root,116,0,1,1712,1256,?,S,7:51:17,0:00,/usr/lib/nfs/statd
+root,118,0,0.9,1632,1128,?,S,7:51:17,0:00,/usr/lib/nfs/lockd
+root,137,0,1.2,1960,1448,?,S,7:51:18,0:00,/usr/lib/autofs/automountd
+root,141,0,1.1,1616,1288,?,S,7:51:18,0:00,/usr/sbin/syslogd
+root,148,0,0.7,1456,856,?,S,7:51:20,0:00,/usr/sbin/cron
+root,154,0,1.3,1960,1592,?,S,7:51:20,0:00,/usr/sbin/nscd
+root,164,0,0.8,2624,992,?,S,7:51:21,0:00,/usr/lib/lpsched
+root,172,0,0.9,1464,1088,?,S,7:51:21,0:00,lpNet
+root,173,0,1.2,1840,1416,?,S,7:51:22,0:00,sendmail: accepting connections                                  g connections                                  nnections
+root,181,0,1,1576,1272,?,S,7:51:22,0:00,lpNet
+root,184,0,0.5,816,568,?,S,7:51:22,0:00,/usr/lib/utmpd
+root,193,0,1.5,2200,1840,?,S,7:51:23,0:01,/usr/sbin/vold
+root,229,0,0.9,1632,1088,?,S,7:51:26,0:08,/usr/local/sbin/sshd
+root,236,0,1.3,2064,1544,?,S,7:51:37,0:00,/usr/local/bin/xntpd
+root,257,0,1,1400,1208,?,S,7:51:37,0:00,/usr/lib/saf/sac -t 300
+root,258,0,1.2,1584,1472,console,S,7:51:37,0:00,/usr/bin/login
+root,260,0,0.9,1352,1144,?,S,7:51:38,0:00,/usr/lib/saf/listen tcp
+root,261,0,1.1,1480,1296,?,S,7:51:38,0:00,/usr/lib/saf/ttymon
+erink,265,0,1.3,1816,1624,console,S,7:57:29,0:00,#NAME?
+root,269,0,0.7,880,784,console,S,7:57:32,0:00,#NAME?
+root,273,0,1.4,1848,1672,console,S,7:57:38,0:00,#NAME?
