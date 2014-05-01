@@ -83,7 +83,7 @@ function clear_tcp_fields() {
     document.getElementById('tcp_win').innerHTML   = "---";
     document.getElementById('tcp_urp').innerHTML   = "---";
     document.getElementById('tcp_csum').innerHTML  = "---";
-    document.getElementById('geodetail').innerHTML = "---";
+    
     while (shifter_iterator < 8) {
         document.getElementById(tag[shifter_iterator]).innerHTML = "---";
         shifter_iterator++;
@@ -159,7 +159,7 @@ var createTable = function (fullData, callback) {
             document.getElementById('ip_off').innerHTML = fullLog.ip_off;
             document.getElementById('ip_ttl').innerHTML = fullLog.ip_ttl;
             document.getElementById('ip_csum').innerHTML = fullLog.ip_csum;
-            document.getElementById('geodetail').innerHTML = "---";
+            //document.getElementById('geodetail').innerHTML = "---";
 
            //The geo location of the IP
            
@@ -172,6 +172,7 @@ var createTable = function (fullData, callback) {
                 document.getElementById('geodetail').innerHTML = geoL;
                 //console.log(data);    
             });
+            geoL = "";
           
             
 
